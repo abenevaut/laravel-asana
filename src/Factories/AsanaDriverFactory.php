@@ -14,7 +14,7 @@ class AsanaDriverFactory
      */
     public function drive(AsanaDriversEnum $driver): ApiRepositoryAbstract
     {
-        $class = '\\abenevaut\\Asana\\Repositories\\' . $driver->value . 'Repository';
+        $class = '\\abenevaut\\Ohdear\\Repositories\\' . $driver->value . 'Repository';
 
         return new $class();
     }
