@@ -4,6 +4,7 @@ namespace abenevaut\Asana\Providers;
 
 use abenevaut\Asana\Contracts\AsanaProviderNameInterface;
 use abenevaut\Asana\Factories\AsanaDriverFactory;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 
 class AsanaServiceProvider extends ServiceProvider implements AsanaProviderNameInterface
@@ -36,9 +37,9 @@ class AsanaServiceProvider extends ServiceProvider implements AsanaProviderNameI
     {
         parent::register();
 
-        $this->app->singleton(self::ASANA, function ($app) {
+        $this->app->singleton(self::ASANA, function (Application $app) {
             // @codeCoverageIgnoreStart
-            return new AsanaDriverFactory();
+            return new AsanaDriverFactory($app);
             // @codeCoverageIgnoreEnd
         });
     }

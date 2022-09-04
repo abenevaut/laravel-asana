@@ -4,9 +4,17 @@ namespace abenevaut\Asana\Factories;
 
 use abenevaut\Asana\Contracts\ApiRepositoryAbstract;
 use abenevaut\Asana\Contracts\AsanaDriversEnum;
+use Illuminate\Foundation\Application;
 
 class AsanaDriverFactory
 {
+    /**
+     * @param  Application  $app
+     */
+    public function __construct(private Application $app)
+    {
+    }
+
     /**
      * Get the registered name of the component.
      *
@@ -14,8 +22,8 @@ class AsanaDriverFactory
      */
     public function drive(AsanaDriversEnum $driver): ApiRepositoryAbstract
     {
-        $class = '\\abenevaut\\Ohdear\\Repositories\\' . $driver->value . 'Repository';
-
-        return new $class();
+        return $this
+            ->app
+            ->make('\\abenevaut\\Ohdear\\Repositories\\' . $driver->value . 'Repository');
     }
 }
