@@ -20,10 +20,13 @@ class AsanaDriverFactory
      *
      * @return string
      */
-    public function drive(AsanaDriversEnum $driver): ApiRepositoryAbstract
+    public function request(AsanaDriversEnum $driver): ApiRepositoryAbstract
     {
         return $this
             ->app
-            ->make('\\abenevaut\\Asana\\Repositories\\' . $driver->value . 'Repository');
+            ->make('\\abenevaut\\Asana\\Repositories\\' . $driver->value . 'Repository', [
+                'access_token' => $this->app['config']->get('service.asana.access_token'),
+                'debug' => $this->app->hasDebugModeEnabled(),
+            ]);
     }
 }

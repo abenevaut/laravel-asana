@@ -12,6 +12,12 @@ abstract class ApiRepositoryAbstract
      */
     private string $baseUrl = 'https://app.asana.com/api/1.0';
 
+    public function __construct(
+        private readonly string $accessToken,
+        private readonly bool $debug
+    ) {
+    }
+
     /**
      * @param  string  $uri
      * @return string
@@ -36,6 +42,7 @@ abstract class ApiRepositoryAbstract
      */
     private function withHeaders(): PendingRequest
     {
-        return Http::withToken(config('asana.access_token'));
+        return Http::withToken($this->accessToken)
+            ->acceptJson();
     }
 }
