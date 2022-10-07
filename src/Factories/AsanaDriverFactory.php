@@ -24,6 +24,6 @@ class AsanaDriverFactory
     {
         return $this
             ->app
-            ->make('\\abenevaut\\Ohdear\\Repositories\\' . $driver->value . 'Repository');
+            ->make('\\abenevaut\\Asana\\Repositories\\' . $driver->value . 'Repository');
     }
 }
